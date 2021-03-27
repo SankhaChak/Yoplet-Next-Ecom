@@ -3,8 +3,62 @@ import styles from "../styles/Home.module.css";
 
 import products from "../products.json";
 import ProductCard from "../components/ProductCard";
+import { useState } from "react";
+import { initiateCheckout } from "../lib/payments";
+
+const defaultCart = {
+  products: {},
+};
 
 export default function Home() {
+  const [cart, updateCart] = useState(defaultCart);
+
+  const cartItems = Object.keys(cart.products).map((key) => {
+    const product = products.find(({ id }) => id === key);
+
+    return {
+      ...cart.products[key],
+      pricePerItem: product.price,
+    };
+  });
+
+  const subtotal = cartItems.reduce(
+    (accumulator, { pricePerItem, quantity }) => {
+      return accumulator + pricePerItem * quantity;
+    },
+    0
+  );
+
+  const totalItems = cartItems.reduce((accumulator, { quantity }) => {
+    return accumulator + quantity;
+  }, 0);
+
+  const addToCart = ({ id } = {}) => {
+    updateCart((prev) => {
+      let cartState = { ...prev };
+
+      if (cartState.products[id]) {
+        cartState.products[id].quantity += 1;
+      } else {
+        cartState.products[id] = {
+          id,
+          quantity: 1,
+        };
+      }
+
+      return cartState;
+    });
+  };
+
+  const checkout = () => {
+    initiateCheckout({
+      lineItems: cartItems.map((item) => ({
+        price: item.id,
+        quantity: item.quantity,
+      })),
+    });
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -19,6 +73,16 @@ export default function Home() {
           The place you look for to gift your loved ones some lovely smiles :)
         </p>
 
+        <p className={styles.description}>
+          <strong>Items:</strong> {totalItems}
+          <br />
+          <strong>Total Cost:</strong> ${subtotal}
+          <br />
+          <button className={styles.button} onClick={checkout}>
+            Check Out
+          </button>
+        </p>
+
         <ul className={styles.grid}>
           {products.map(({ title, description, image, price, id }) => (
             <ProductCard
@@ -28,6 +92,7 @@ export default function Home() {
               description={description}
               price={price}
               image={image}
+              addToCart={addToCart}
             />
           ))}
         </ul>
