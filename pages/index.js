@@ -23,6 +23,7 @@ export default function Home() {
           {products.map(({ title, description, image, price, id }) => (
             <ProductCard
               key={id}
+              id={id}
               title={title}
               description={description}
               price={price}
