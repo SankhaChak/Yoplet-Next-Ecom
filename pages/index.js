@@ -4,7 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 import products from "../products.json";
 import ProductCard from "../components/ProductCard";
-import useCart from "../hooks/use-cart";
+import { useCart } from "../hooks/use-cart";
 
 export default function Home() {
   const { totalItems, subtotal, checkout, addToCart } = useCart();
@@ -17,13 +17,13 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Yoplet</h1>
+        {/* <h1 className={styles.title}>Yoplet</h1> */}
 
         <p className={styles.description}>
           The place you look for to gift your loved ones some lovely smiles :)
         </p>
 
-        <ul className={styles.cart}>
+        {/* <ul className={styles.cart}>
           <li>
             <strong>Items:</strong> {totalItems}
           </li>
@@ -39,7 +39,7 @@ export default function Home() {
               Check Out
             </button>
           </li>
-        </ul>
+        </ul> */}
 
         <ul className={styles.grid}>
           {products.map(({ title, description, image, price, id }) => (
