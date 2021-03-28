@@ -71,7 +71,15 @@ export const useCartState = () => {
     });
   };
 
-  return { cart, updateCart, totalItems, subtotal, checkout, addToCart };
+  return {
+    cart,
+    updateCart,
+    cartItems,
+    totalItems,
+    subtotal,
+    checkout,
+    addToCart,
+  };
 };
 
 export const useCart = () => {

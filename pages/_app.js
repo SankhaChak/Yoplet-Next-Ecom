@@ -1,4 +1,4 @@
-import Nav from "../components/Nav";
+import Nav from "../components/Nav/Nav";
 import { CartContext, useCartState } from "../hooks/use-cart";
 import "../styles/globals.css";
 
