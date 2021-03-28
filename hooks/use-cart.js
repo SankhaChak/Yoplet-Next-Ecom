@@ -62,6 +62,18 @@ export const useCartState = () => {
     });
   };
 
+  const updateItem = ({ id, quantity } = {}) => {
+    updateCart((prev) => {
+      let cartState = { ...prev };
+
+      if (cartState.products[id]) {
+        cartState.products[id].quantity = quantity;
+      }
+
+      return cartState;
+    });
+  };
+
   const checkout = () => {
     initiateCheckout({
       lineItems: cartItems.map((item) => ({
@@ -77,6 +89,7 @@ export const useCartState = () => {
     cartItems,
     totalItems,
     subtotal,
+    updateItem,
     checkout,
     addToCart,
   };
