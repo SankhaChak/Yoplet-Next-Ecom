@@ -1,13 +1,12 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { FaShoppingCart } from "react-icons/fa";
 
 import products from "../products.json";
 import ProductCard from "../components/ProductCard";
 import { useCart } from "../hooks/use-cart";
 
 export default function Home() {
-  const { totalItems, subtotal, checkout, addToCart } = useCart();
+  const { addToCart } = useCart();
 
   return (
     <div className={styles.container}>
@@ -17,29 +16,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {/* <h1 className={styles.title}>Yoplet</h1> */}
-
         <p className={styles.description}>
           The place you look for to gift your loved ones some lovely smiles :)
         </p>
-
-        {/* <ul className={styles.cart}>
-          <li>
-            <strong>Items:</strong> {totalItems}
-          </li>
-          <li>
-            <strong>Total:</strong> ${subtotal}
-          </li>
-          <li>
-            <button
-              className={`${styles.button} ${styles.cartButton}`}
-              onClick={checkout}
-            >
-              <FaShoppingCart />
-              Check Out
-            </button>
-          </li>
-        </ul> */}
 
         <ul className={styles.grid}>
           {products.map(({ title, description, image, price, id }) => (
